@@ -1,0 +1,213 @@
+$dark-theme: false;
+$header-percent: 0.35;
+$small-header-percent: 0.2;
+
+@mixin flex-center() {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+    flex-direction: column;
+}
+$shadow-1: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
+$shadow-2: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+$shadow-3: 0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+$shadow-4: 0 10px 20px rgba(0, 0, 0, 0.22), 0 14px 56px rgba(0, 0, 0, 0.25);
+$shadow-5: 0 15px 24px rgba(0, 0, 0, 0.22), 0 19px 76px rgba(0, 0, 0, 0.3);
+$transition: cubic-bezier(0.23, 0.54, 0.19, 0.99);
+$transition-2: cubic-bezier(0.08, 0.54, 0.45, 0.91);
+$primary-dark: #1c1d21;
+$primary-light: #e2e2e2;
+$text-light-primary: #d9cb9e;
+$text-light-secondary: rgba(217,203,158,.5);
+$text-dark-primary: rgba(0,0,0,.87);
+$text-dark-secondary: rgba(0,0,0,.56);
+
+$accent-1: #dc3522;
+$accent-2: #2a2c2b;
+$accent-3: #1e1e20;
+
+/* #DC3522
+#D9CB9E
+#374140
+#2A2C2B
+#1E1E20 */
+
+html,
+body,
+#rr,
+.root {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	font-family: 'Roboto', sans-serif;
+	background: $accent-3;
+	color: $text-light-primary;
+}
+.root {
+
+}
+.header {
+	color: $text-light-primary;
+	background: $accent-1;
+	height: 50px;
+	display: flex;
+	box-shadow: $shadow-1;
+
+	h1 {
+		margin: 0;
+		padding: 0 14px;
+		font-size: 20px;
+		font-weight: normal;
+		line-height: 50px;
+		flex: 1;
+	}
+	span {
+		flex: none;
+		padding-right: 16px;
+		display: inline-block;
+		line-height: 50px;
+	}
+}
+.content {
+	display: flex;
+	height: calc(100% - 50px);
+
+	.drop {
+		@include flex-center;
+		flex: 1;
+		height: 100%;
+		// transition: flex .4s $transition;
+
+		&.small {
+			flex: .25;
+		}
+		.center-icon {
+			cursor: pointer;
+			position: relative;
+			height: 240px;
+			width: 240px;
+			border-radius: 50%;
+			background: $accent-2;
+			text-align: center;
+			transition: background .15s $transition;
+			box-shadow: $shadow-2;
+
+			&:hover,
+			&.dragging {
+				background: $accent-1;
+
+				.mdi,
+				span {
+					color: $text-light-primary;
+				}
+			}
+			&.dragging {
+				pointer-events: none;
+			}
+			.mdi {
+				pointer-events: none;
+				height: 200px;
+				width: 200px;
+				font-size: 200px;
+				display: inline-block;
+				margin-top: -10px;
+				color: $text-light-secondary;
+				transition: color .15s $transition;
+			}
+			span {
+				pointer-events: none;
+				display: block;
+				margin-top: -10px;
+				color: $text-light-secondary;
+				transition: color .15s $transition;
+			}
+		}
+		input {
+			display: none;
+		}
+
+	}
+	.list {
+		flex: 1;
+		width: 100%;
+		overflow-y: auto !important;
+		border-right: 1px solid $accent-2;
+		// transition: flex .4s $transition;
+
+		&.hidden {
+			display: none;
+		}
+		li {
+			display: flex;
+			width: 100%;
+			// display: inline-block;
+			height: 50px;
+			line-height: 50px;
+			box-sizing: border-box;
+			border-bottom: 1px solid $accent-2;
+			padding: 0 6px 0 16px;
+			position: relative;
+			overflow: hidden;
+
+			.info-container {
+				margin-top: 0;
+				transition: margin-top .4s $transition;
+				flex: 1;
+
+				span {
+					display: inline-block;
+					vertical-align: middle;
+				
+					&.title {
+						// flex: 1;
+						margin-right: 20px;
+					}
+					&.progress {
+						color: $text-light-secondary;
+						font-size: 0.9rem;
+					}
+				}
+			}
+			.mdi {
+				padding: 0 10px;
+				color: $accent-1;
+				font-size: 20px;
+				// position: absolute;
+				cursor: pointer;
+				vertical-align: middle;
+				height: 50px;
+				line-height: 50px;
+				transition: height .4s $transition;
+			}
+			&.active .info-container {
+				margin-top: -6px;
+			}
+			&.active .mdi {
+				height: 38px;
+				line-height: 38px;
+			}
+			.progress-bar-container {
+				position: absolute;
+				top: 50px;
+				left: 0;
+				margin: 0 16px;
+				height: 6px;
+				width: calc(100% - 32px);
+				background: $accent-2;
+				opacity: 0;
+				transition: top .4s $transition,
+							opacity .4s $transition;
+			}
+			&.active .progress-bar-container {
+				top: 32px;
+				opacity: 1;
+			}
+			.progress-bar {
+				background: $accent-1;
+				height: 100%;
+				transition: .4s width $transition;
+			}
+		}
+	}
+}
